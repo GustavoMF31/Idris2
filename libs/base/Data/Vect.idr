@@ -809,8 +809,13 @@ implementation Traversable (Vect k) where
 -- Show
 --------------------------------------------------------------------------------
 
+-- Showing an empty vector does not require 'Show elem'
 export
-implementation Show elem => Show (Vect len elem) where
+implementation Show (Vect 0 elem) where
+    show [] = "[]"
+
+export
+implementation Show elem => Show (Vect (S len) elem) where
     show = show . toList
 
 -- Some convenience functions for testing lengths
